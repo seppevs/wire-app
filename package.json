@@ -24,6 +24,10 @@
   ],
   "author": "Sebastian Van Sande",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seppevs/wire-app.git"
+  },
   "dependencies": {
     "caller": "^1.0.1",
     "camelcase": "^4.1.0",
