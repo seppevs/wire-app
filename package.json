@@ -1,0 +1,38 @@
+{
+  "name": "wire-app",
+  "version": "0.0.1",
+  "description": "A tiny, but powerful dependency injection container for your Node.js apps",
+  "main": "./src/wire-app.js",
+  "scripts": {
+    "lint": "eslint --cache *.js src/ test/",
+    "test": "jest -i --forceExit",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "wire",
+    "app",
+    "wireApp",
+    "wire-app",
+    "dependency",
+    "injection",
+    "inversion",
+    "control",
+    "di",
+    "ioc",
+    "framework",
+    "spring"
+  ],
+  "author": "Sebastian Van Sande",
+  "license": "MIT",
+  "dependencies": {
+    "caller": "^1.0.1",
+    "camelcase": "^4.1.0",
+    "fn-args": "^3.0.0",
+    "globby": "^8.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-plugin-jest": "^21.15.0",
+    "jest": "^22.4.2"
+  }
+}
