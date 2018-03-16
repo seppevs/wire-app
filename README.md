@@ -7,20 +7,20 @@ A tiny, but powerful dependency injection container for your Node.js apps
 * setting values and getting values
 * injecting dependencies (duh)
 
-## Example
+## Quick Example
 ```javascript
 const wireApp = require('wire-app');
 
 wireApp('myCoolApp')
-  .scan('./repository') // a relative dir to scan
-  .scan('/some/absolute/dir/service') // and absolute dir to scan
-  .register(customerService) // manual registering of a factory function
-  .set('config', { my: 'values'}) // setting values
-  .on('error', (err) => console.error(err.message)) // listening to errors
-  .on('ready', (app) => { // app is wired successful and ready to use
+  .scan('./some/relative/dir')
+  .scan('/some/absolute/dir')
+  .register(taskRunner)
+  .set('config', { my: 'values'})
+  .on('error', (err) => console.error(err.message))
+  .on('ready', (app) => {
     console.log(`${app.name} started!`);
-    console.log(app.get('config')) // retrieving values
-    app.get(customerService).run(); // retrieving a (wired) component
+    console.log(app.get('config'));
+    app.get('taskRunner').run();
   });
 ```
 
@@ -29,39 +29,49 @@ wireApp('myCoolApp')
 The API is fluent. All functions, except `get()` can be chained.
 
 ### wire-app(name)
-The `wire-app` module exposes a function. 
-It can be invoked with the name of the application you're wiring. It returns the 'app'.
+Constructs a new app and returns it.
+
+#### Example
+```javascript
+wireApp('myApp')
+  .on('ready', (app) => console.log(app.name)); // prints `myApp`
+```
 
 All other functions mentioned below are part of the 'app' API.
 
 ### app.register(fn)
-This function will 
-1. execute the `fn` parameter with its requested dependencies
+The `register(fn)` function will 
+1. Invoke the `fn` parameter and inject its dependencies
 2. register it in the application context, under the function name.
 
-The function can be a factory function or a class.
+The `fn` function should be a factory function OR a class, and must have a name.
 
-It MUST be a named function!
+The order you invoke the register functions does not matter. Wire-app will figure out dependency order.
 
-This function returns the app (fluent api).
+The `register(fn)` function returns the `app` to provide a fluent API.
+
+[See this example](https://github.com/seppevs/wire-app/tree/master/examples/register/index.js)
 
 ### app.scan(scanPath)
-Scans a absolute or relative directory for exposed factory methods and/or classes.
+Scans recursively am absolute or relative directory for exposed factory methods and/or classes.
+It will register them, similar to the `app.register(fn)` function
 
-This function returns the app (fluent api).
+The `app.scan(scanPath)` function returns the app to provide a fluent API.
+
+[See this example](https://github.com/seppevs/wire-app/tree/master/examples/scan)
 
 ### app.set(key, value)
-Store a value under a certain key, in the application context
+Stores a value, under a certain key, in the application context
 
 The value can be of any type. No dependency injection will occur
 
-This function returns the app (fluent api).
+The `app.set(key, value)` function returns the app to provide a fluent API.
 
 ### app.get(key)
 Returns the value (or component) registered under the requested key.
 
 ### app events
-The application will emit several events
+The `app` is an EventEmitter and will emit a few events
 
 #### `'ready'`
 This event is emitted when the whole application was wired successfully.
@@ -72,4 +82,4 @@ It emits the `app` as its first parameter
 Will be emitted when something went wrong during the wiring phase.
 
 ## Thanks
-The idea of the API comes from Dieter Luypaert
+The idea of the API comes from [Dieter Luypaert](https://github.com/moeriki).
