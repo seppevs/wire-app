@@ -5,7 +5,7 @@
   "main": "./src/wire-app.js",
   "scripts": {
     "lint": "eslint --cache *.js src/ test/",
-    "test": "jest -i --forceExit",
+    "test": "jest -i",
     "test:coverage": "jest --coverage"
   },
   "keywords": [
@@ -35,8 +35,8 @@
     "globby": "^10.0.1"
   },
   "devDependencies": {
-    "eslint": "^6.2.2",
-    "eslint-plugin-jest": "^22.15.2",
+    "eslint": "^6.6.0",
+    "eslint-plugin-jest": "^23.0.2",
     "jest": "^24.9.0"
   }
 }
