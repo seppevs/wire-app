@@ -32,7 +32,7 @@
     "caller": "^1.0.1",
     "camelcase": "^6.0.0",
     "fn-args": "^5.0.0",
-    "globby": "^11.0.0"
+    "globby": "^12.0.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
